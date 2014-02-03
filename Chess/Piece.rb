@@ -6,6 +6,8 @@ class Piece
 
     def initialize(color)
         @color = color
+        @validMoves = Array.new
+        @currentPosn
     
     end
     
