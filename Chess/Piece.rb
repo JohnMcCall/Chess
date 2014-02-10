@@ -24,4 +24,8 @@ class Piece
       @currentPosn
     end
     
+    def to_s()
+      @color
+    end
+    
 end
