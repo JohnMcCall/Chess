@@ -3,6 +3,7 @@
 require "./Piece"
 require "./Board"
 require "./Position"
+require "./Drawer"
 require "rubygame"
 
 include Rubygame
@@ -25,17 +26,9 @@ print @validWhite
 puts
 print @validBlack
 puts
-
 #@board.printBoard()
 
-#Test Drawing the Board
-#@screen = Screen.open [640,640]
-#@background = Surface.load "images/ChessBoard.jpg"
-#@background.blit @screen, [0,0]
-#
-#@screen.flip
-### Keep the Board Drawn until a key is pressed.
-#@event_queue = EventQueue.new
-#@event_queue.enable_new_style_events
-#until @event_queue.wait().is_a? Events::KeyPressed
-#end
+@drawer = Drawer.new()
+
+@drawer.drawBoard()
+@drawer.drawPiece(@whitePiece)
