@@ -34,31 +34,14 @@ class Board
     
     for i in 1..numUp
       posnToCheck = Position.new(curX, (curY - i))
-      pieceAtPosn = lookupPosn(posnToCheck)
-      if pieceAtPosn then
-        if pieceAtPosn.getColor() != color then
-          validMoves.push(posnToCheck)
-        else
-          break
-        end
-      else
-        validMoves.push(posnToCheck)
-      end
+      valid = addValidMove(validMoves, posnToCheck, color)
+      if !valid then break end
     end
     
     for i in 1..numDown
       posnToCheck = Position.new(curX, (curY + i))
-        puts posnToCheck
-      pieceAtPosn = lookupPosn(posnToCheck)
-      if pieceAtPosn then
-        if pieceAtPosn.getColor() != color then
-          validMoves.push(posnToCheck)
-        else
-          break
-        end
-      else
-        validMoves.push(posnToCheck)
-      end
+      valid = addValidMove(validMoves, posnToCheck, color)
+      if !valid then break end
     end
         
     validMoves
@@ -71,6 +54,27 @@ class Board
   end
   
   def getKnightMoves(piece)
+  end
+  
+  # This method takes a list of validMoves, a position to check, and a color.
+  # It then checks to see if there is a piece at the given position.
+  # If there is it checks to see if it matches the given color.
+  # It then decides to add the position to the list.
+  def addValidMove(validMoves, posnToCheck, color)
+    toReturn = true
+    pieceAtPosn = lookupPosn(posnToCheck)
+    if pieceAtPosn then
+      if pieceAtPosn.getColor() != color then
+        validMoves.push(posnToCheck)
+        toReturn = false
+      else
+        toReturn = false
+      end
+    else
+      validMoves.push(posnToCheck)
+    end
+    
+    toReturn
   end
   
 end
