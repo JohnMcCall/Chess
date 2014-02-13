@@ -8,8 +8,8 @@ require "rubygame"
 include Rubygame
 include Sprites::Sprite
 
-@whitePosn = Position.new(1,5)
-@blackPosn = Position.new(1,4)
+@whitePosn = Position.new(3,5)
+@blackPosn = Position.new(4,5)
 
 @whitePiece = Piece.new "white", @whitePosn
 @blackPiece = Piece.new "black", @blackPosn
@@ -18,8 +18,8 @@ include Sprites::Sprite
 @board.updatePosn(@whitePiece,@whitePosn)
 @board.updatePosn(@blackPiece,@blackPosn)
 
-@validWhite = @board.getVerticalMoves(@whitePiece,3,2)
-@validBlack = @board.getVerticalMoves(@blackPiece,2,2)
+@validWhite = @board.getHorizontalMoves(@whitePiece,3,2)
+@validBlack = @board.getHorizontalMoves(@blackPiece,2,2)
 
 print @validWhite
 puts

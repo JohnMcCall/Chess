@@ -48,6 +48,24 @@ class Board
   end
   
   def getHorizontalMoves(piece, numRight, numLeft)
+    validMoves = Array.new
+        curX = piece.getCurrentPosn().getX()
+        curY = piece.getCurrentPosn().getY()
+        color = piece.getColor()
+        
+        for i in 1..numRight
+          posnToCheck = Position.new((curX - i), curY)
+          valid = addValidMove(validMoves, posnToCheck, color)
+          if !valid then break end
+        end
+        
+        for i in 1..numLeft
+          posnToCheck = Position.new((curX + i), curY)
+          valid = addValidMove(validMoves, posnToCheck, color)
+          if !valid then break end
+        end
+            
+        validMoves
   end
   
   def getDiagonalMoves(piece, numTopRight, numTopLeft, numBottomRight, numBottomLeft)
