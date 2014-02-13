@@ -49,59 +49,74 @@ class Board
   
   def getHorizontalMoves(piece, numRight, numLeft)
     validMoves = Array.new
-        curX = piece.getCurrentPosn().getX()
-        curY = piece.getCurrentPosn().getY()
-        color = piece.getColor()
+    curX = piece.getCurrentPosn().getX()
+    curY = piece.getCurrentPosn().getY()
+    color = piece.getColor()
+    
+    for i in 1..numRight
+      posnToCheck = Position.new((curX + i), curY)
+      valid = addValidMove(validMoves, posnToCheck, color)
+      if !valid then break end
+    end
+    
+    for i in 1..numLeft
+      posnToCheck = Position.new((curX - i), curY)
+      valid = addValidMove(validMoves, posnToCheck, color)
+      if !valid then break end
+    end
         
-        for i in 1..numRight
-          posnToCheck = Position.new((curX + i), curY)
-          valid = addValidMove(validMoves, posnToCheck, color)
-          if !valid then break end
-        end
-        
-        for i in 1..numLeft
-          posnToCheck = Position.new((curX - i), curY)
-          valid = addValidMove(validMoves, posnToCheck, color)
-          if !valid then break end
-        end
-            
-        validMoves
+    validMoves
   end
   
   def getDiagonalMoves(piece, numTopRight, numTopLeft, numBottomRight, numBottomLeft)
     validMoves = Array.new
-            curX = piece.getCurrentPosn().getX()
-            curY = piece.getCurrentPosn().getY()
-            color = piece.getColor()
-            
-            for i in 1..numTopRight
-              posnToCheck = Position.new((curX + i), (curY - i))
-              valid = addValidMove(validMoves, posnToCheck, color)
-              if !valid then break end
-            end
-            
-            for i in 1..numTopLeft
-              posnToCheck = Position.new((curX - i), (curY - i))
-              valid = addValidMove(validMoves, posnToCheck, color)
-              if !valid then break end
-            end
-            
-            for i in 1..numBottomRight
-              posnToCheck = Position.new((curX + i), (curY + i))
-              valid = addValidMove(validMoves, posnToCheck, color)
-              if !valid then break end
-            end
-            
-            for i in 1..numBottomLeft
-              posnToCheck = Position.new((curX - i), (curY + i))
-              valid = addValidMove(validMoves, posnToCheck, color)
-              if !valid then break end
-            end
-                
-            validMoves
+    curX = piece.getCurrentPosn().getX()
+    curY = piece.getCurrentPosn().getY()
+    color = piece.getColor()
+    
+    for i in 1..numTopRight
+      posnToCheck = Position.new((curX + i), (curY - i))
+      valid = addValidMove(validMoves, posnToCheck, color)
+      if !valid then break end
+    end
+    
+    for i in 1..numTopLeft
+      posnToCheck = Position.new((curX - i), (curY - i))
+      valid = addValidMove(validMoves, posnToCheck, color)
+      if !valid then break end
+    end
+    
+    for i in 1..numBottomRight
+      posnToCheck = Position.new((curX + i), (curY + i))
+      valid = addValidMove(validMoves, posnToCheck, color)
+      if !valid then break end
+    end
+    
+    for i in 1..numBottomLeft
+      posnToCheck = Position.new((curX - i), (curY + i))
+      valid = addValidMove(validMoves, posnToCheck, color)
+      if !valid then break end
+    end
+        
+    validMoves
   end
   
   def getKnightMoves(piece)
+    validMoves = Array.new
+    curX = piece.getCurrentPosn().getX()
+    curY = piece.getCurrentPosn().getY()
+    color = piece.getColor()
+    
+    addValidMove(validMoves, Position.new(curX - 1, curY - 2), color)
+    addValidMove(validMoves, Position.new(curX + 1, curY - 2), color)
+    addValidMove(validMoves, Position.new(curX - 2, curY - 1), color)
+    addValidMove(validMoves, Position.new(curX + 2, curY - 1), color)
+    addValidMove(validMoves, Position.new(curX - 2, curY + 1), color)
+    addValidMove(validMoves, Position.new(curX + 2, curY + 1), color)
+    addValidMove(validMoves, Position.new(curX - 1, curY + 2), color)
+    addValidMove(validMoves, Position.new(curX + 1, curY + 2), color)
+    
+    validMoves
   end
   
   # This method takes a list of validMoves, a position to check, and a color.
@@ -109,6 +124,12 @@ class Board
   # If there is it checks to see if it matches the given color.
   # It then decides to add the position to the list.
   def addValidMove(validMoves, posnToCheck, color)
+    
+    # If either the X or Y coordinate of the posnToCheck is off the board, don't add that move.
+    if !posnToCheck.getX().between?(0, 7) || !posnToCheck.getY().between?(0, 7) then
+      return false
+    end
+    
     toReturn = true
     pieceAtPosn = lookupPosn(posnToCheck)
     if pieceAtPosn then
