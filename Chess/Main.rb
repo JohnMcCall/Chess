@@ -57,7 +57,13 @@ while @run
     
     when Events::MouseReleased
       p(event.pos)
-      puts @cursor.convertToPosition(event.pos)
+      newPosn = @cursor.convertToPosition(event.pos)
+      @whitePiece.setCurrentPosn(newPosn)
+      puts("White piece position:" + @whitePiece.to_s())
+      @whitePiece.update()
+      @board.draw(@screen)
+      @whitePiece.draw(@screen)
+      @screen.flip
       
     end
   end
