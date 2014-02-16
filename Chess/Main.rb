@@ -3,6 +3,7 @@
 require "./Piece"
 require "./Board"
 require "./Position"
+require "./CursorController"
 require "rubygame"
 
 include Rubygame
@@ -36,23 +37,40 @@ puts
 @whitePiece.draw(@screen)
 
 @screen.flip
+
+
 ## Keep the Board Drawn until a key is pressed.
+@cursor = CursorController.new()
 @event_queue = EventQueue.new
 @event_queue.enable_new_style_events
-sumTime =  @clock.tick().seconds
-until @event_queue.wait().is_a? Events::KeyPressed
-  seconds_passed = @clock.tick().seconds
-  sumTime += seconds_passed
-  p("sumTime is " + sumTime.to_s)
-  if(sumTime > 0.5)
-    sumTime = 0
-    @whitePiece.setCurrentPosn(Position.new(Random.new().rand(8),Random.new().rand(8)))
-    puts("White piece position:" + @whitePiece.to_s())
-    @whitePiece.update()
-    @board.draw(@screen)
-    @whitePiece.draw(@screen)
-    @screen.flip
-  end
-end
+@sumTime =  @clock.tick().seconds
 
-gets()
+@run = true
+while @run
+  @event_queue.each do |event|
+    case event
+    
+    when Events::KeyPressed
+      if(event.key == :q)
+        @run = false
+      end
+    
+    when Events::MouseReleased
+      p(event.pos)
+      puts @cursor.convertToPosition(event.pos)
+      
+    end
+  end
+#  seconds_passed = @clock.tick().seconds
+#  sumTime += seconds_passed
+#  p("sumTime is " + sumTime.to_s)
+#  if(sumTime > 0.5)
+#    sumTime = 0
+#    @whitePiece.setCurrentPosn(Position.new(Random.new().rand(8),Random.new().rand(8)))
+#    puts("White piece position:" + @whitePiece.to_s())
+#    @whitePiece.update()
+#    @board.draw(@screen)
+#    @whitePiece.draw(@screen)
+#    @screen.flip
+#  end
+end
