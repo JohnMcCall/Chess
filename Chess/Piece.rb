@@ -14,9 +14,13 @@ class Piece
       @color = color
       @validMoves = Array.new
       @currentPosn = startingPosn
-      @imageLocation = "images/icon.png"
+      @imageLocation = "images/WhitePawn.png"
       @image = Surface.load @imageLocation
-      @rect = @image.make_rect
+      @rect = Rect.new(startingPosn.findCenter,[80,80])
+    end
+    
+    def draw(onScreen)
+      @image.blit(onScreen, @rect)
     end
     
     def getColor()

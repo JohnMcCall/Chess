@@ -1,8 +1,14 @@
+require "rubygems"
+require "rubygame"
+
+include Rubygame
+include Sprites::Sprite
+
 class Board
   
   def initialize
     super()
-    
+    @background = Surface.load "images/ChessBoard.jpg"
     @board = Array.new(8) {Array.new(8)}
   end
   
@@ -144,6 +150,10 @@ class Board
     end
     
     toReturn
+  end
+  
+  def draw(onScreen)
+    @background.blit onScreen, [0,0]
   end
   
 end
