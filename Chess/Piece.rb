@@ -23,6 +23,10 @@ class Piece
       @image.blit(onScreen, @rect)
     end
     
+    def update()
+      @rect.topleft = @currentPosn.findCenter
+    end
+    
     def getColor()
       @color
     end
@@ -33,6 +37,10 @@ class Piece
     
     def getCurrentPosn()
       @currentPosn
+    end
+    
+    def setCurrentPosn(position)
+      @currentPosn = position
     end
     
     def getImageLocation()
@@ -52,7 +60,7 @@ class Piece
     end
     
     def to_s()
-      @color
+      "Color:" + @color + " , Position:" + @currentPosn.to_s
     end
     
 end
