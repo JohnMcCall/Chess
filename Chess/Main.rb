@@ -16,8 +16,8 @@ include Sprites::Sprite
 @whitePosn = Position.new(2,2)
 @blackPosn = Position.new(4,4)
 
-@whitePiece = Piece.new "white", @whitePosn
-@blackPiece = Piece.new "black", @blackPosn
+@whitePiece = Piece.new "White", @whitePosn, "Pawn"
+@blackPiece = Piece.new "Black", @blackPosn, "Pawn"
 
 @board = Board.new
 @board.updatePosn(@whitePiece,@whitePosn)
@@ -43,7 +43,6 @@ puts
 @cursor = CursorController.new()
 @event_queue = EventQueue.new
 @event_queue.enable_new_style_events
-@sumTime =  @clock.tick().seconds
 
 @run = true
 while @run
@@ -67,16 +66,5 @@ while @run
       
     end
   end
-#  seconds_passed = @clock.tick().seconds
-#  sumTime += seconds_passed
-#  p("sumTime is " + sumTime.to_s)
-#  if(sumTime > 0.5)
-#    sumTime = 0
-#    @whitePiece.setCurrentPosn(Position.new(Random.new().rand(8),Random.new().rand(8)))
-#    puts("White piece position:" + @whitePiece.to_s())
-#    @whitePiece.update()
-#    @board.draw(@screen)
-#    @whitePiece.draw(@screen)
-#    @screen.flip
-#  end
+
 end

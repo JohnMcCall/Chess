@@ -8,13 +8,14 @@ include Sprites::Sprite
 
 class Piece
 
-    def initialize(color, startingPosn)
+    def initialize(color, startingPosn, rank)
       super()
       
       @color = color
+      @rank = rank
       @validMoves = Array.new
       @currentPosn = startingPosn
-      @imageLocation = "images/WhitePawn.png"
+      @imageLocation = "images/#{@color}#{@rank}.png"
       @image = Surface.load @imageLocation
       @rect = Rect.new(startingPosn.findCenter,[80,80])
     end
@@ -60,7 +61,7 @@ class Piece
     end
     
     def to_s()
-      "Color:" + @color + " , Position:" + @currentPosn.to_s
+      @color + @rank + "at position:" + @currentPosn.to_s
     end
     
 end
