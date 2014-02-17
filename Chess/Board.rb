@@ -6,7 +6,8 @@ include Sprites::Sprite
 
 class Board
   
-  def initialize
+  
+  def initialize()
     super()
     @background = Surface.load "images/ChessBoard.jpg"
     @board = Array.new(8) {Array.new(8)}

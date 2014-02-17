@@ -8,9 +8,9 @@ include Sprites::Sprite
 
 class Piece
 
-    def initialize(color, startingPosn, rank)
+    def initialize(board, color, startingPosn, rank)
       super()
-      
+      @board = board
       @color = color
       @rank = rank
       @validMoves = Array.new
@@ -18,6 +18,16 @@ class Piece
       @imageLocation = "images/#{@color}#{@rank}.png"
       @image = Surface.load @imageLocation
       @rect = Rect.new(startingPosn.findCenter,[80,80])
+    end
+    
+    def generateValidMoves
+      # Each piece should generate it's own list of valid moves, but 
+      # I'm used to Java so I'm writing this method declaration as if
+      # this were an abstract class
+    end
+    
+    def move(posn)
+      p(@validMoves)
     end
     
     def draw(onScreen)
@@ -61,7 +71,7 @@ class Piece
     end
     
     def to_s()
-      @color + @rank + "at position:" + @currentPosn.to_s
+      @color + @rank + " at position:" + @currentPosn.to_s
     end
     
 end

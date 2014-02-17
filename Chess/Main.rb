@@ -4,32 +4,36 @@ require "./Piece"
 require "./Board"
 require "./Position"
 require "./CursorController"
+require "./Rook"
 require "rubygame"
 
 include Rubygame
 include Sprites::Sprite
 
-@clock = Clock.new
-@clock.target_framerate = 60
-@clock.enable_tick_events
 
 @whitePosn = Position.new(2,2)
 @blackPosn = Position.new(4,4)
 
-@whitePiece = Piece.new "White", @whitePosn, "Pawn"
-@blackPiece = Piece.new "Black", @blackPosn, "Pawn"
+@whitePiece = Piece.new @board, "White", @whitePosn, "Pawn"
+@blackPiece = Piece.new @board, "Black", @blackPosn, "Pawn"
 
 @board = Board.new
 @board.updatePosn(@whitePiece,@whitePosn)
 @board.updatePosn(@blackPiece,@blackPosn)
 
+@testRook = Rook.new(@board, "White", Position.new(6,6))
+
+@testRook.move @whitePosn
+@whitePiece.move @whitePosn
+
+@testRook.generateValidMoves()
+
+@testRook.move @whitePosn
+@whitePiece.move @whitePosn
+
 @validWhite = @board.getKnightMoves(@whitePiece)
 @validBlack = @board.getKnightMoves(@blackPiece)
 
-print @validWhite
-puts
-print @validBlack
-puts
 #@board.printBoard()
 @screen = Screen.open [640,640]
 @board.draw(@screen)
