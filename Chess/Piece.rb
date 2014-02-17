@@ -18,6 +18,8 @@ class Piece
       @imageLocation = "images/#{@color}#{@rank}.png"
       @image = Surface.load @imageLocation
       @rect = Rect.new(startingPosn.findCenter,[80,80])
+      
+      @board.updatePosn(self, startingPosn)
     end
     
     def generateValidMoves
@@ -27,7 +29,13 @@ class Piece
     end
     
     def move(posn)
-      p(@validMoves)
+      if @validMoves.include?(posn) then
+        @board.updatePosn(nil, @currentPosn)
+        @board.updatePosn(self, posn)
+        @currentPosn = posn
+      else
+        puts "That was not a Valid Move!"
+      end
     end
     
     def draw(onScreen)

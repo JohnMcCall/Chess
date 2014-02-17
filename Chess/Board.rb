@@ -54,7 +54,7 @@ class Board
     validMoves
   end
   
-  def getHorizontalMoves(piece, numRight, numLeft)
+  def getHorizontalMoves(piece, numLeft, numRight)
     validMoves = Array.new
     curX = piece.getCurrentPosn().getX()
     curY = piece.getCurrentPosn().getY()

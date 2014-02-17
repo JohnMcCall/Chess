@@ -10,38 +10,25 @@ require "rubygame"
 include Rubygame
 include Sprites::Sprite
 
-
-@whitePosn = Position.new(2,2)
-@blackPosn = Position.new(4,4)
-
-@whitePiece = Piece.new @board, "White", @whitePosn, "Pawn"
-@blackPiece = Piece.new @board, "Black", @blackPosn, "Pawn"
+#@whitePosn = Position.new(2,2)
+#@blackPosn = Position.new(4,4)
+#
+#@whitePiece = Piece.new @board, "White", @whitePosn, "Pawn"
+#@blackPiece = Piece.new @board, "Black", @blackPosn, "Pawn"
 
 @board = Board.new
-@board.updatePosn(@whitePiece,@whitePosn)
-@board.updatePosn(@blackPiece,@blackPosn)
+#@board.updatePosn(@whitePiece,@whitePosn)
+#@board.updatePosn(@blackPiece,@blackPosn)
 
-@testRook = Rook.new(@board, "White", Position.new(6,6))
+@whiteRook = Rook.new(@board, "White", Position.new(6,6))
+@whiteRook.generateValidMoves()
 
-@testRook.move @whitePosn
-@whitePiece.move @whitePosn
-
-@testRook.generateValidMoves()
-
-@testRook.move @whitePosn
-@whitePiece.move @whitePosn
-
-@validWhite = @board.getKnightMoves(@whitePiece)
-@validBlack = @board.getKnightMoves(@blackPiece)
-
-#@board.printBoard()
 @screen = Screen.open [640,640]
 @board.draw(@screen)
 
-@whitePiece.draw(@screen)
+@whiteRook.draw(@screen)
 
 @screen.flip
-
 
 ## Keep the Board Drawn until a key is pressed.
 @cursor = CursorController.new()
@@ -61,11 +48,13 @@ while @run
     when Events::MouseReleased
       p(event.pos)
       newPosn = @cursor.convertToPosition(event.pos)
-      @whitePiece.setCurrentPosn(newPosn)
-      puts("White piece position:" + @whitePiece.to_s())
-      @whitePiece.update()
+      @whiteRook.move(newPosn)
+      @whiteRook.generateValidMoves()
+      puts("White piece position:" + @whiteRook.to_s())
+      p @whiteRook.getValidMoves()
+      @whiteRook.update()
       @board.draw(@screen)
-      @whitePiece.draw(@screen)
+      @whiteRook.draw(@screen)
       @screen.flip
       
     end
