@@ -33,6 +33,8 @@ class Position
     "(#{@x},#{@y})"
   end
   
-  
+  def ==(other)
+    (other.instance_of?(self.class)) && (@x == other.getX()) && (@y == other.getY())
+  end  
   
 end
